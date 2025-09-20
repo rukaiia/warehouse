@@ -18,4 +18,5 @@ public class WarehouseDto {
 
     private Double capacity;
 
+
 }

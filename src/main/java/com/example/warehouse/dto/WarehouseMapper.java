@@ -14,5 +14,6 @@ public class WarehouseMapper {
 
                 .build();
     }
+    
 }
 
