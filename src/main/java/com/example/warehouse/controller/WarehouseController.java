@@ -1,9 +1,6 @@
 package com.example.warehouse.controller;
 
-import com.example.warehouse.dto.AckDto;
-import com.example.warehouse.dto.WarehouseDto;
-import com.example.warehouse.dto.WarehouseItemDto;
-import com.example.warehouse.dto.WarehouseMapper;
+import com.example.warehouse.dto.*;
 import com.example.warehouse.entity.Product;
 import com.example.warehouse.entity.WarehouseItem;
 
@@ -80,8 +77,8 @@ public class WarehouseController {
     }
 //    http://localhost:8282/api/warehouses/1/capacity
     @GetMapping("/{id}/capacity")
-    public ResponseEntity<WarehouseDto> getWarehouseCapacity(@PathVariable Long id) {
-        WarehouseDto dto = warehouseService.getWarehouseCapacity(id);
+    public ResponseEntity<WareHouseFreeDto> getWarehouseCapacity(@PathVariable Long id) {
+        WareHouseFreeDto dto = warehouseService.getWarehouseCapacity(id);
         return ResponseEntity.ok(dto);
     }
 //    http://localhost:8282/api/warehouses/1/add-product
@@ -101,28 +98,25 @@ public class WarehouseController {
                     product,
                     request.getQuantity()
             );
-            int totalQuantity = updatedWarehouse.getItems().stream()
-                    .mapToInt(WarehouseItem::getQuantity)
-                    .sum();
 
-            WarehouseDto dto = new WarehouseDto(
-                    updatedWarehouse.getId(),
-                    updatedWarehouse.getName(),
-                    (double) totalQuantity
-            );
+            List<WarehouseItemDto> items = updatedWarehouse.getItems().stream()
+                    .map(item -> WarehouseItemDto.builder()
+                            .productId(item.getProduct().getId())
+                            .productName(item.getProduct().getName())
+                            .quantity(item.getQuantity())
+                            .build())
+                    .toList();
 
-//            double freeCapacity = warehouseService.getFreeCapacity(updatedWarehouse);
-//
-//            WarehouseDto dto = new WarehouseDto(
-//                    updatedWarehouse.getId(),
-//                    updatedWarehouse.getName(),
-//                    freeCapacity
-//
-//            );
+            WarehouseDto dto = WarehouseDto.builder()
+                    .id(updatedWarehouse.getId())
+                    .name(updatedWarehouse.getName())
+                    .capacity(updatedWarehouse.getCapacity())
+                    .items(items)
+                    .build();
 
             return ResponseEntity.ok(dto);
         }
 
 
-    }
+}
 

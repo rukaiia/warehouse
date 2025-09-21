@@ -8,6 +8,7 @@ import com.example.warehouse.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,4 +33,15 @@ public class ProductService {
 
 
     }
+    @Transactional
+
+    public Product deleteProduct(Long productId){
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("product with this Id was not found"));
+         productRepository.delete(product);
+         return product;
+
+    }
+
 }

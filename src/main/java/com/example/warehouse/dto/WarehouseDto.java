@@ -17,6 +17,7 @@ public class WarehouseDto {
     private String name;
 
     private Double capacity;
+    private List<WarehouseItemDto> items;
 
 
 }

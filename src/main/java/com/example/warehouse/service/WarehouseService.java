@@ -1,5 +1,6 @@
 package com.example.warehouse.service;
 
+import com.example.warehouse.dto.WareHouseFreeDto;
 import com.example.warehouse.dto.WarehouseDto;
 import com.example.warehouse.entity.Product;
 import com.example.warehouse.entity.Warehouse;
@@ -84,15 +85,16 @@ public class WarehouseService {
         return Math.max(0, warehouse.getCapacity() - used);
     }
 
-    public WarehouseDto getWarehouseCapacity(Long warehouseId) {
+    public WareHouseFreeDto getWarehouseCapacity(Long warehouseId) {
         Warehouse warehouse = getWarehouseById(warehouseId);
         double used = getUsedCapacity(warehouse);
         double free = getFreeCapacity(warehouse);
 
 
-        return new WarehouseDto(
+        return new WareHouseFreeDto(
                 warehouse.getId(),
                 warehouse.getName(),
+
                 free
         );
     }
