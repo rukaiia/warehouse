@@ -30,8 +30,8 @@ public class ProductController {
     //    http://localhost:8282/api/products
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody ProductDto productDto) {
-        Product createWarehouse = productService.createProduct(productDto);
-        return ResponseEntity.ok(createWarehouse);
+        Product createProduct= productService.createProduct(productDto);
+        return ResponseEntity.ok(createProduct);
 
     }
 

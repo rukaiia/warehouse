@@ -2,16 +2,23 @@ package com.example.warehouse.service;
 
 import com.example.warehouse.dto.WareHouseFreeDto;
 import com.example.warehouse.dto.WarehouseDto;
+import com.example.warehouse.dto.WarehouseHistoryDto;
+import com.example.warehouse.dto.WarehouseItemDto;
 import com.example.warehouse.entity.Product;
 import com.example.warehouse.entity.Warehouse;
 import com.example.warehouse.entity.WarehouseItem;
+import com.example.warehouse.repository.DeliveryRepository;
 import com.example.warehouse.repository.ProductRepository;
+import com.example.warehouse.repository.ShipmentRepository;
 import com.example.warehouse.repository.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +27,8 @@ import java.util.Optional;
 public class WarehouseService {
     private final WarehouseRepository warehouseRepository;
     private final ProductRepository productRepository;
-
+    private final ShipmentRepository shipmentRepository;
+    private final DeliveryRepository deliveryRepository;
 
     public Warehouse createWarehouse(WarehouseDto warehouseDto){
         Warehouse warehouse = Warehouse.builder()
@@ -138,4 +146,50 @@ public class WarehouseService {
                 .orElseThrow(() -> new RuntimeException(
                         "Product with id " + productId + " not found"));
     }
+    public List<WarehouseHistoryDto> getWarehouseHistory(Long warehouseId) {
+        Warehouse warehouse = getWarehouseById(warehouseId);
+
+        List<WarehouseHistoryDto> deliveries = deliveryRepository.findByWarehouseId(warehouseId).stream()
+                .map(delivery -> WarehouseHistoryDto.builder()
+                        .id(delivery.getId())
+                        .type("delivery")
+                        .date(delivery.getCreatedAt())
+                        .items(delivery.getItems().stream()
+                                .map(i -> WarehouseItemDto.builder()
+                                        .productId(i.getProduct().getId())
+                                        .productName(i.getProduct().getName())
+                                        .quantity(i.getQuantity())
+                                        .build())
+                                .toList())
+                        .build())
+                .toList();
+
+        List<WarehouseHistoryDto> shipments = shipmentRepository.findByWarehouseId(warehouseId).stream()
+                .map(shipment -> WarehouseHistoryDto.builder()
+                        .id(shipment.getId())
+                        .type("shipment")
+                        .date(shipment.getCreatedAt())
+                        .items(shipment.getItems().stream()
+                                .map(i -> WarehouseItemDto.builder()
+                                        .productId(i.getProduct().getId())
+                                        .productName(i.getProduct().getName())
+                                        .quantity(i.getQuantity())
+                                        .build())
+                                .toList())
+                        .build())
+                .toList();
+
+
+        List<WarehouseHistoryDto> history = new ArrayList<>();
+        history.addAll(deliveries);
+        history.addAll(shipments);
+        history.sort(Comparator.comparing(
+                WarehouseHistoryDto::getDate,
+                Comparator.nullsLast(Comparator.naturalOrder())
+        ));
+
+
+        return history;
+    }
+
 }

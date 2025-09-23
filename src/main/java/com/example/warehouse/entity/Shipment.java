@@ -13,7 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Delivery {
+@Table(name = "shipment")
+public class Shipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +22,10 @@ public class Delivery {
 
     @ManyToOne
     private Warehouse warehouse;
+    private String deliveryAddress;
 
-    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DeliveryItem> items;
+    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ShipmentItem> items;
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;

@@ -116,6 +116,11 @@ public class WarehouseController {
 
             return ResponseEntity.ok(dto);
         }
+//    http://localhost:8282/api/warehouses/1/history
+    @GetMapping("/{id}/history")
+    public ResponseEntity<List<WarehouseHistoryDto>> getWarehouseHistory(@PathVariable Long id) {
+        return ResponseEntity.ok(warehouseService.getWarehouseHistory(id));
+    }
 
 
 }

@@ -1,0 +1,17 @@
+[33mcommit a18e255675c559d08a13b473f07c20c669527e72[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Rukaiia <raimberdievarukaya@gmail.com>
+Date:   Sun Sep 21 21:40:18 2025 +0600
+
+    Created createcreateDelivery method , added new entities and changed method getAllWarehose in WarehouseController
+
+[33mcommit 288708cb5d0b838a15e13d9ec3fb2234c62ac72b[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Rukaiia <raimberdievarukaya@gmail.com>
+Date:   Sun Sep 21 01:09:28 2025 +0600
+
+    created create method for products, created method addProduct to warehouse and method getfreecapacity
+
+[33mcommit ace13e43525c75f912a984f2726477e4aedc9d56[m
+Author: Rukaiia <raimberdievarukaya@gmail.com>
+Date:   Sat Sep 20 23:00:47 2025 +0600
+
+    created first crud methods for warehouse

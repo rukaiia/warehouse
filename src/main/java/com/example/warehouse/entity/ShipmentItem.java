@@ -9,14 +9,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PackageItem {
+public class ShipmentItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private Package pkg;
+    private Shipment shipment;
 
     @ManyToOne
     private Product product;
