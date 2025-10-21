@@ -1,11 +1,11 @@
-package com.example.warehouse.service;
+package com.example.authservice.service;
 
 
 
-import com.example.warehouse.dto.UserDto;
-import com.example.warehouse.entity.User;
-import com.example.warehouse.repository.UserRepository;
-import com.example.warehouse.security.JwtUtil;
+import com.example.authservice.dto.UserDto;
+import com.example.authservice.Entity.User;
+import com.example.authservice.repository.UserRepository;
+import com.example.authservice.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

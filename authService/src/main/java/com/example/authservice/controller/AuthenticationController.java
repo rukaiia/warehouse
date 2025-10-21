@@ -1,7 +1,7 @@
-package com.example.warehouse.controller;
+package com.example.authservice.controller;
 
-import com.example.warehouse.dto.UserDto;
-import com.example.warehouse.service.AuthenticationService;
+import com.example.authservice.dto.UserDto;
+import com.example.authservice.service.AuthenticationService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

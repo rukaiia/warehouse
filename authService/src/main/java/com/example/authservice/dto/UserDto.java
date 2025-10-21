@@ -1,4 +1,4 @@
-package com.example.warehouse.dto;
+package com.example.authservice.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

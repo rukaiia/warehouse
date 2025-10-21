@@ -6,6 +6,7 @@ import com.example.warehouse.entity.Delivery;
 import com.example.warehouse.entity.DeliveryItem;
 import com.example.warehouse.entity.Product;
 import com.example.warehouse.entity.Warehouse;
+import com.example.warehouse.exception.NotFoundException;
 import com.example.warehouse.repository.DeliveryRepository;
 import com.example.warehouse.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,7 @@ public class DeliveryService {
 
             List<DeliveryItem> items = request.getItems().stream().map(itemDto -> {
                 Product product = productRepository.findById(itemDto.getProductId())
-                        .orElseThrow(() -> new RuntimeException("Product not found"));
+                        .orElseThrow(() -> new NotFoundException("Product not found"));
 
                 DeliveryItem item = new DeliveryItem();
                 item.setProduct(product);

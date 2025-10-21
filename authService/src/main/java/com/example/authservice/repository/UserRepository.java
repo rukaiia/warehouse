@@ -1,6 +1,6 @@
-package com.example.warehouse.repository;
+package com.example.authservice.repository;
 
-import com.example.warehouse.entity.User;
+import com.example.authservice.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.stream.Stream;

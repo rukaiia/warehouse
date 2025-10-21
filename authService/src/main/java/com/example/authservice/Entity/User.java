@@ -1,12 +1,9 @@
-package com.example.warehouse.entity;
+package com.example.authservice.Entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

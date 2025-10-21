@@ -4,6 +4,7 @@ import com.example.warehouse.dto.ProductDto;
 import com.example.warehouse.dto.WarehouseDto;
 import com.example.warehouse.entity.Product;
 import com.example.warehouse.entity.Warehouse;
+import com.example.warehouse.exception.NotFoundException;
 import com.example.warehouse.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class ProductService {
     public Product deleteProduct(Long productId){
 
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("product with this Id was not found"));
+                .orElseThrow(() -> new NotFoundException("product with this Id was not found"));
          productRepository.delete(product);
          return product;
 

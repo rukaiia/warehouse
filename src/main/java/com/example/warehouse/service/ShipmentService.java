@@ -71,6 +71,7 @@ public class ShipmentService {
                 .build();
     }
     private WarehouseItem findWarehouseItem(Warehouse warehouse, Long productId) {
+
         return warehouse.getItems().stream()
                 .filter(wi -> wi.getProduct().getId().equals(productId))
                 .findFirst()
